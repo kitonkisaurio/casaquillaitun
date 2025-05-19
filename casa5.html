@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #fff;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .card img {
+            width: 120%;
+            max-width: 120%;
+            height: 240px;
+            object-fit: cover;
+            margin-left: -10%;
+        }
+        .card.grayscale img {
+            filter: grayscale(100%);
+        }
+        .card h2 {
+            margin: 10px 0;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        .card input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .card button {
+            margin: 10px 5px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .add-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .cart h3 {
+            margin-top: 0;
+        }
+        .cart ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart li {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .cart .total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        form input, form button {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="casa.png" alt="Logo" style="height: 100px;">
+</header>
+
+<div class="container" id="productos"></div>
+
+<div class="cart" id="cart">
+    <h3>Canasta</h3>
+    <ul id="cart-items"></ul>
+    <p class="total">Total: $<span id="cart-total">0</span></p>
+    <button id="checkout-btn" disabled>Enviar Pedido</button>
+</div>
+
+<form id="formulario">
+    <input type="text" id="nombre" placeholder="Nombre" required>
+    <input type="text" id="contacto" placeholder="Contacto" required>
+    <input type="text" id="direccion" placeholder="Dirección de Entrega" required>
+</form>
+
+<script>
+    const productos = [
+        { id: 1, nombre: 'Quita Pelusas', valor: 5000, stock: 10, imagen: './sacapelusa.png' },
+        { id: 2, nombre: 'candelabro gota', valor: 12000, stock: 2, imagen: './candelabrogota.png' },
+        { id: 3, nombre: 'florero madera 60cm', valor: 5000, stock: 5, imagen: './floreromadera.png' },
+        { id: 4, nombre: 'perfume mujer', valor: 3500, stock: 3, imagen: './perfumemujer.png' },
+        { id: 5, nombre: 'perfume hombre', valor: 3500, stock: 3, imagen: './perfumehombre.png' },
+        { id: 6, nombre: 'adaptador llave', valor: 3000, stock: 3, imagen: './adaptadorllave.png' },
+        { id: 7, nombre: 'Super Pegamento', valor: 1000, stock: 3, imagen: './superglue.png' },
+        { id: 8, nombre: 'Afeitadora hombre', valor: 6000, stock: 3, imagen: './afeitadorahombre.png' },
+        { id: 9, nombre: 'Set 5 posillos', valor: 1000, stock: 3, imagen: './5posillos.png' },
+        { id: 10, nombre: 'Set 5 esponjas', valor: 1000, stock: 3, imagen: './5esponjas.png' },
+        { id: 11, nombre: 'lazos coquette', valor: 1500, stock: 3, imagen: './lazoscoquette.png' },
+        { id: 12, nombre: 'lazos coquette', valor: 1500, stock: 3, imagen: './lazoscoquette2.png' },
+        { id: 13, nombre: 'mini rallador', valor: 500, stock: 3, imagen: './minirallador.png' },
+        { id: 14, nombre: 'lápices tinta', valor: 250, stock: 3, imagen: './lapicestinta.png' },
+        { id: 15, nombre: 'llaveros', valor: 700, stock: 3, imagen: './llaveros.png' },
+        { id: 16, nombre: 'Vaso labubu mediano', valor: 6500, stock: 3, imagen: './labubuM.png' },
+        { id: 17, nombre: 'audifonos gato', valor: 5000, stock: 3, imagen: './audifonogato.png' },
+        { id: 18, nombre: 'vaso labubu grande', valor: 8000, stock: 3, imagen: './vasolabubuG.png' },
+        { id: 19, nombre: 'Guantes Sanrio', valor: 2000, stock: 3, imagen: './guantesanrio.png' },
+        { id: 20, nombre: 'Vaso labubu chico', valor: 5000, stock: 3, imagen: './vasolabubuC.png' },
+        { id: 21, nombre: 'Ampolleta Vintage', valor: 1500, stock: 3, imagen: './ampolletavintage.png' },
+        { id: 22, nombre: 'Mantas 127X152 cms', valor: 6500, stock: 3, imagen: './mantas.png' },
+        { id: 23, nombre: 'Bajada Cama', valor: 1000, stock: 3, imagen: './bajadacama.png' },
+        { id: 24, nombre: 'Cobertor delgado King', valor: 12000, stock: 3, imagen: './cobertorking.png' },
+        { id: 25, nombre: 'Cepillo de pelo Sanrio', valor: 2000, stock: 3, imagen: './cepillopelosanrio.png' },
+        { id: 26, nombre: 'Funda Sillas set de 6', valor: 10000, stock: 3, imagen: './fundasilla.png' },
+        { id: 27, nombre: 'Lampara Cónica', valor: 15000, stock: 3, imagen: './lamparacono.png' },
+        { id: 28, nombre: 'Lampara rueda', valor: 8000, stock: 3, imagen: './lampararueda.png' },
+        { id: 29, nombre: 'Lampara poligonal', valor: 8000, stock: 3, imagen: './lamparapoligonal.png' },
+        { id: 30, nombre: 'Lampara rejilla', valor: 8000, stock: 3, imagen: './lamparareja.png' },
+        { id: 31, nombre: 'Lampara malla', valor: 8000, stock: 3, imagen: './lamparamalla.png' },
+        { id: 32, nombre: 'Lampara poligonal2', valor: 8000, stock: 3, imagen: './lamparapoligonal2.png' },
+        { id: 33, nombre: 'mini tocador gatito', valor: 5000, stock: 3, imagen: './minitocadorgatito.png' },
+        { id: 34, nombre: 'lampara redonda', valor: 8000, stock: 3, imagen: './lampararedonda.png' },
+        { id: 35, nombre: 'lampara circular', valor: 8000, stock: 3, imagen: './lamparacircular.png' }
+    ];
+    const productosContainer = document.getElementById('productos');
+    const cart = [];
+
+    function renderProductos() {
+        productosContainer.innerHTML = '';
+        productos.forEach(producto => {
+            const card = document.createElement('div');
+            card.className = `card ${producto.stock === 0 ? 'grayscale' : ''}`;
+            card.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <h2>${producto.nombre}</h2>
+                <p>Valor: $${producto.valor}</p>
+                <p style="color: ${producto.stock > 0 ? 'green' : 'red'}">
+                    ${producto.stock > 0 ? `Stock: ${producto.stock}` : 'Sin Stock'}
+                </p>
+                <div>
+                    <input type="number" id="qty-${producto.id}" min="1" max="${producto.stock}" value="1" ${producto.stock === 0 ? 'disabled' : ''}>
+                    <button class="add-btn" onclick="addToCart(${producto.id})" ${producto.stock === 0 ? 'disabled' : ''}>Agregar</button>
+                </div>
+            `;
+            productosContainer.appendChild(card);
+        });
+    }
+
+    function renderCart() {
+        const cartList = document.getElementById('cart-items');
+        const totalEl = document.getElementById('cart-total');
+        cartList.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.nombre} x ${item.cantidad} = $${item.subtotal}`;
+            cartList.appendChild(li);
+            total += item.subtotal;
+        });
+        totalEl.textContent = total;
+        document.getElementById('checkout-btn').disabled = cart.length === 0;
+    }
+
+    function addToCart(id) {
+        const producto = productos.find(p => p.id === id);
+        const qtyInput = document.getElementById(`qty-${id}`);
+        const cantidad = parseInt(qtyInput.value);
+        if (cantidad > producto.stock) {
+            alert('Cantidad supera el stock disponible');
+            return;
+        }
+        producto.stock -= cantidad;
+        const existing = cart.find(i => i.id === id);
+        if (existing) {
+            existing.cantidad += cantidad;
+            existing.subtotal += cantidad * producto.valor;
+        } else {
+            cart.push({ id, nombre: producto.nombre, cantidad, subtotal: cantidad * producto.valor });
+        }
+        renderProductos(); renderCart();
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+        const nombre = document.getElementById('nombre').value;
+        const contacto = document.getElementById('contacto').value;
+        const direccion = document.getElementById('direccion').value;
+        if (!nombre || !contacto || !direccion) {
+            alert('Por favor completa todos los campos del formulario');
+            return;
+        }
+        let subject = `Nuevo pedido de ${nombre}`;
+        let body = `Cliente: ${nombre}\nContacto: ${contacto}\nDirección: ${direccion}\n\nPedido:\n`;
+        cart.forEach(item => { body += `- ${item.nombre} x ${item.cantidad} = $${item.subtotal}\n`; });
+        body += `\nTotal: $${parseInt(document.getElementById('cart-total').textContent)}`;
+        window.location.href = `mailto:quillaituncasa@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+
+    // Inicializar
+    renderProductos(); renderCart();
+</script>
+
+</body>
+</html>
