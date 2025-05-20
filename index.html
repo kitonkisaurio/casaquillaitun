@@ -207,10 +207,14 @@ click en imagen para compartir enlace
 <div class="container" id="productos"></div>
 
 <div class="cart" id="cart">
-    <h3>Canasta</h3>
+    <h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Canasta" style="width:24px; height:24px; vertical-align:middle; margin-right:6px;">
+        Canasta
+    </h3>
     <ul id="cart-items"></ul>
     <p class="total">Total: $<span id="cart-total">0</span></p>
     <button id="checkout-btn" disabled>Enviar Pedido</button>
+    <button id="clear-cart-btn" style="background:#dc3545; color:white; margin-left:10px; margin-top:8px;">Limpiar Canasta</button>
 </div>
 
 <form id="formulario">
@@ -225,12 +229,12 @@ click en imagen para compartir enlace
 
 <script>
     const productos = [
-        { id: 1, nombre: 'Quita Pelusas', valor: 2500, stock: 10, imagen: './sacapelusa.png' },
+        { id: 1, nombre: 'Quita Pelusas', valor: 5000, stock: 10, imagen: './sacapelusa.png' },
         { id: 2, nombre: 'candelabro gota', valor: 12000, stock: 2, imagen: './candelabrogota.png' },
         { id: 3, nombre: 'florero madera 60cm', valor: 5000, stock: 5, imagen: './floreromadera.png' },
         { id: 4, nombre: 'perfume mujer', valor: 3500, stock: 3, imagen: './perfumemujer.png' },
         { id: 5, nombre: 'perfume hombre', valor: 3500, stock: 3, imagen: './perfumehombre.png' },
-        { id: 6, nombre: 'adaptador llave', valor: 3000, stock: 0, imagen: './adaptadorllave.png' },
+        { id: 6, nombre: 'adaptador llave', valor: 3000, stock: 3, imagen: './adaptadorllave.png' },
         { id: 7, nombre: 'Super Pegamento', valor: 1000, stock: 3, imagen: './superglue.png' },
         { id: 8, nombre: 'Afeitadora hombre', valor: 6000, stock: 3, imagen: './afeitadorahombre.png' },
         { id: 9, nombre: 'Set 5 posillos', valor: 1000, stock: 3, imagen: './5posillos.png' },
@@ -361,6 +365,17 @@ click en imagen para compartir enlace
     document.getElementById('img-modal').onclick = function() {
         this.style.display = 'none';
     };
+
+    document.getElementById('clear-cart-btn').addEventListener('click', function() {
+        // Restaurar stock de productos
+        cart.forEach(item => {
+            const producto = productos.find(p => p.id === item.id);
+            if (producto) producto.stock += item.cantidad;
+        });
+        cart.length = 0;
+        renderProductos();
+        renderCart();
+    });
 
     // Inicializar
     renderProductos(); renderCart();
