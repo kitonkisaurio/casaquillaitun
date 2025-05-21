@@ -203,12 +203,45 @@
             font-weight: normal;
             text-shadow: 1px 1px 8px #e0d2b8;
         }
+        .marquesina-marfil {
+            width: 100vw;
+            overflow: hidden;
+            background: #F9F6F2; /* marfil */
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid #e0d2b8;
+            position: relative;
+        }
+        .marquesina-marfil.encabezado {
+            border-top: none;
+            border-bottom: 1px solid #e0d2b8;
+        }
+        .texto-marquesina {
+            display: inline-block;
+            white-space: nowrap;
+            color: #B97A56; /* beige oscuro */
+            font-family: 'Parisienne', cursive, Arial, sans-serif;
+            font-size: 2em;
+            padding: 10px 0;
+            animation: marquesina-izq 18s linear infinite;
+        }
+        @keyframes marquesina-izq {
+            0% {
+                transform: translateX(100vw);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <img src="casa.png" alt="Logo" style="height: 200px;">
+    <div class="marquesina-marfil encabezado">
+        <span class="texto-marquesina">Casa Quillaitún</span>
+    </div>
 </header>
 
 <h1 class="titulo-catalogo">Catálogo de Productos</h1>
@@ -400,5 +433,37 @@
         +56 9 8955 3123
     </a>
 </footer>
+
+<div class="marquesina-marfil">
+    <span class="texto-marquesina">Casa Quillaitún</span>
+</div>
+<style>
+.marquesina-marfil {
+    width: 100vw;
+    overflow: hidden;
+    background: #F9F6F2; /* marfil */
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #e0d2b8;
+    position: relative;
+}
+.texto-marquesina {
+    display: inline-block;
+    white-space: nowrap;
+    color: #B97A56; /* beige oscuro */
+    font-family: 'Parisienne', cursive, Arial, sans-serif;
+    font-size: 2em;
+    padding: 10px 0;
+    animation: marquesina-izq 18s linear infinite;
+}
+@keyframes marquesina-izq {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+</style>
 </body>
 </html>
