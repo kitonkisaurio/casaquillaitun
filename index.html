@@ -393,6 +393,8 @@
         const direccion = document.getElementById('direccion').value;
         if (!nombre || !contacto || !direccion) {
             alert('Por favor completa datos del contacto al pie de la página 🤩');
+            // Hacer scroll suave al formulario
+            document.getElementById('formulario').scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
         let subject = `Nuevo pedido de ${nombre}`;
@@ -452,24 +454,24 @@
     margin: 0;
     border-top: 1px solid #e0d2b8;
     position: relative;
-}
-.texto-marquesina {
     display: inline-block;
     white-space: nowrap;
     color: #B97A56; /* beige oscuro */
     font-family: 'Parisienne', cursive, Arial, sans-serif;
-    font-size: 2em;
-    padding: 10px 0;
+    font-size: 2em; /* beige oscuro */
+    padding: 10px 0;risienne', cursive, Arial, sans-serif;
     animation: marquesina-izq 18s linear infinite;
-}
-@keyframes marquesina-izq {
+}   padding: 10px 0;
+@keyframes marquesina-izq {zq 18s linear infinite;
     0% {
         transform: translateX(100vw);
-    }
-    100% {
+    }% {
+    100% {ansform: translateX(100vw);
         transform: translateX(-100%);
-    }
-}
+    }00% {
+}       transform: translateX(-100%);
 </style>
+</body>
+</html>>
 </body>
 </html>
