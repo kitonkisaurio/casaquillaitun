@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Productos</title>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -234,6 +235,7 @@
             }
         }
     </style>
+    
 </head>
 <body>
 
@@ -246,7 +248,16 @@
 
 <h1 class="titulo-catalogo">Catálogo de Productos</h1>
 
+<div style="text-align:center; margin: 40px 0;">
+    <h2 style="color:#B97A56; font-family:Arial, sans-serif; font-size:2em; margin-bottom:16px;">
+        ESPECIAL LABUBU
+    </h2>
+    <img src="Labubu-intro_480x480.webp" alt="Labubu en pez dorado" width="300">
+</div>
+
 <div class="container" id="productos"></div>
+     <h2> ESPECIAL LABUBU</h2> <img src="Labubu-intro_480x480.webp" alt="Labubu en pez dorado" width="300">
+
 
 <div class="cart" id="cart">
     <h3>
@@ -267,10 +278,16 @@
 <div id="img-modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;">
     <img id="modal-img" src="" alt="Imagen ampliada" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;">
 </div>
- <h2> ESPECIAL LABUBU</h2> <img src="Labubu-intro_480x480.webp" alt="Labubu en pez dorado" width="300">
-
+<div>
+</div>
 <script>
     const productos = [
+        { id: 53, nombre: 'Labubu sorpresa', valor: 7000, stock: 11, imagen: './labubusorpresa.png' },
+        { id: 20, nombre: 'Vaso labubu chico', valor: 5000, stock: 2, imagen: './vasolabubuC.png' },
+        { id: 16, nombre: 'Vaso labubu mediano', valor: 6000, stock: 1, imagen: './labubuM.png' },                { id: 18, nombre: 'vaso labubu grande', valor: 8000, stock: 1, imagen: './vasolabubuG.png' },
+        { id: 18, nombre: 'vaso labubu grande', valor: 8000, stock: 1, imagen: './vasolabubuG.png' },
+        { id: 51, nombre: 'pop socket celular labubu', valor: 2000, stock: 8, imagen: './popsocket.png' },
+        { id: 60, nombre: 'Paraguas infantil Labubu', valor: 3500, stock: 6, imagen: './paraguasinfantiles.jpeg' },
         { id: 66, nombre: '🆕 NUEVO minitocador Espejo 🪞💄', valor: 5000, stock: 1, imagen: './minitocador.jpg' },
         { id: 65, nombre: '🥳 Set de 6 Inidviuales ', valor: 4500, stock: 2, imagen: './individuales.jpg' },
         { id: 1, nombre: 'Quita Pelusas', valor: 2500, stock: 2, imagen: './sacapelusa.png' },
@@ -286,11 +303,8 @@
         { id: 13, nombre: 'mini rallador', valor: 500, stock: 8, imagen: './minirallador.png' },
         { id: 14, nombre: 'lápices tinta', valor: 250, stock: 15, imagen: './lapicestinta.png' },
         { id: 15, nombre: 'llaveros', valor: 700, stock: 11, imagen: './llaveros.png' },
-        { id: 16, nombre: 'Vaso labubu mediano', valor: 6000, stock: 1, imagen: './labubuM.png' },
         { id: 17, nombre: 'audifonos gato', valor: 5000, stock: 2, imagen: './audifonogato.png' },
-        { id: 18, nombre: 'vaso labubu grande', valor: 8000, stock: 1, imagen: './vasolabubuG.png' },
         { id: 19, nombre: 'Guantes Sanrio', valor: 2000, stock: 3, imagen: './guantesanrio.png' },
-        { id: 20, nombre: 'Vaso labubu chico', valor: 5000, stock: 2, imagen: './vasolabubuC.png' },
         { id: 21, nombre: 'Ampolleta Vintage', valor: 1500, stock: 22, imagen: './ampolletavintage.png' },
         { id: 22, nombre: 'Mantas 127X152 cms', valor: 6500, stock: 9, imagen: './mantas.png' },
         { id: 23, nombre: 'Bajada Cama', valor: 1000, stock: 8, imagen: './bajadacama.png' },
@@ -309,15 +323,12 @@
         { id: 38, nombre: 'ampolleta recargable', valor: 2000, stock: 5, imagen: './ampolletarecargable.png' },
         { id: 39, nombre: 'luz led chica recargable', valor: 2500, stock: 2, imagen: './luzledchica.png' },
         { id: 50, nombre: 'ampolleta tipo vintage', valor: 1000, stock: 20, imagen: './ampolletatipovintage.png' },
-        { id: 51, nombre: 'pop socket celular labubu', valor: 2000, stock: 8, imagen: './popsocket.png' },
         { id: 52, nombre: 'adaptador de vehiculo usb', valor: 2000, stock: 2, imagen: './usbcar.png' },
-        { id: 53, nombre: 'Labubu sorpresa', valor: 7000, stock: 11, imagen: './labubusorpresa.png' },
         { id: 54, nombre: 'alcancías metalizadas ', valor: 5000, stock: 2, imagen: './alcancia.png' },
         { id: 55, nombre: 'Juguete solar sanrio ', valor: 2500, stock: 5, imagen: './solarsanrio.png' },
         { id: 56, nombre: 'Set de 6 cuchillos ', valor: 2500, stock: 3, imagen: './6cuchillos.png' },
         { id: 57, nombre: 'linterna recargable 3 modos ', valor: 2500, stock: 7, imagen: './linternarecargable.png' },
         { id: 58, nombre: 'Espejo doble capibara ', valor: 2500, stock: 10, imagen: './espejocapibara.png' },
-        { id: 60, nombre: 'Paraguas infantil Labubu', valor: 3500, stock: 6, imagen: './paraguasinfantiles.jpeg' },
         { id: 61, nombre: 'aireador llave', valor: 1000, stock: 6, imagen: './aireadorllave.jpeg' },
         { id: 62, nombre: 'Vaso Stanley 1 <b>PRECIO REBAJADO</b>', valor: 13000, stock: 2, imagen: './vasostanley.jpg' },
         { id: 63, nombre: 'Vaso Stanley 2 <b>PRECIO REBAJADO</b>', valor: 13000, stock: 2, imagen: './vasostanley2.jpeg' },
@@ -474,5 +485,3 @@
 </style>
 </body>
 </html>>
-</body>
-</html>
