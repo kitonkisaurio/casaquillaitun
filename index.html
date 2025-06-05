@@ -255,6 +255,18 @@
     <img src="Labubu-intro_480x480.webp" alt="Labubu en pez dorado" width="300">
 </div>
 
+<!-- Agrega el buscador antes de la lista de productos -->
+<div style="text-align:center; margin-bottom: 24px;">
+    <input 
+        type="text" 
+        id="buscador-productos" 
+        placeholder="Buscar producto..." 
+        style="width: 260px; padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 1em;"
+        oninput="filtrarProductos()"
+    >
+</div>
+<div id="resultado-busqueda" style="text-align:center; color:#B97A56; margin-bottom:18px; font-size:1.1em;"></div>
+
 <div class="container" id="productos"></div>
      <h2> ESPECIAL LABUBU</h2> <img src="Labubu-intro_480x480.webp" alt="Labubu en pez dorado" width="300">
 
@@ -397,6 +409,70 @@
             cart.push({ id, nombre: producto.nombre, cantidad, subtotal: cantidad * producto.valor });
         }
         renderProductos(); renderCart();
+    }
+
+    function filtrarProductos() {
+        const texto = document.getElementById('buscador-productos').value.trim().toLowerCase();
+        const resultadoDiv = document.getElementById('resultado-busqueda');
+        let encontrados = [];
+
+        if (texto === "") {
+            renderProductos();
+            resultadoDiv.textContent = "";
+            return;
+        }
+
+        // Buscar productos que incluyan el texto (mayúsculas/minúsculas indistinto)
+        encontrados = productos.filter(producto =>
+            producto.nombre.toLowerCase().includes(texto)
+        );
+
+        // Si no hay coincidencias exactas, buscar la coincidencia más cercana por similitud
+        if (encontrados.length === 0) {
+            // Buscar el producto con mayor cantidad de letras en común
+            let maxCoincidencias = 0;
+            let productoMasCercano = null;
+            productos.forEach(producto => {
+                let coincidencias = 0;
+                for (let i = 0; i < texto.length; i++) {
+                    if (producto.nombre.toLowerCase().includes(texto[i])) {
+                        coincidencias++;
+                    }
+                }
+                if (coincidencias > maxCoincidencias) {
+                    maxCoincidencias = coincidencias;
+                    productoMasCercano = producto;
+                }
+            });
+            if (productoMasCercano) {
+                encontrados = [productoMasCercano];
+                resultadoDiv.textContent = "Mostrando el producto más parecido a tu búsqueda.";
+            } else {
+                resultadoDiv.textContent = "No se encontraron productos para tu búsqueda.";
+            }
+        } else {
+            resultadoDiv.textContent = `Resultados para: "${document.getElementById('buscador-productos').value}"`;
+        }
+
+        // Mostrar los productos encontrados
+        productosContainer.innerHTML = '';
+        encontrados.forEach(producto => {
+            const card = document.createElement('div');
+            card.className = `card ${producto.stock === 0 ? 'grayscale' : ''}`;
+            card.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}" style="cursor:zoom-in;" onclick="mostrarImagen('${producto.imagen}', '${producto.nombre}')">
+                <h2>${producto.nombre}</h2>
+                <p>Valor: $${producto.valor}</p>
+                <p style="color: ${producto.stock > 0 ? 'green' : 'red'}">
+                    ${producto.stock > 0 ? `Stock: ${producto.stock}` : 'Sin Stock'}
+                </p>
+                <div>
+                    <input type="number" id="qty-${producto.id}" min="1" max="${producto.stock}" value="1" ${producto.stock === 0 ? 'disabled' : ''}>
+                    <button class="add-btn" onclick="addToCart(${producto.id})" ${producto.stock === 0 ? 'disabled' : ''}>Agregar</button>
+                </div>
+            `;
+            productosContainer.appendChild(card);
+        });
     }
 
     document.getElementById('checkout-btn').addEventListener('click', () => {
