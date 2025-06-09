@@ -268,8 +268,6 @@
 <div id="resultado-busqueda" style="text-align:center; color:#B97A56; margin-bottom:18px; font-size:1.1em;"></div>
 
 <div class="container" id="productos"></div>
-     <h2> ESPECIAL LABUBU</h2> <img src="Labubu-intro_480x480.webp" alt="Labubu en pez dorado" width="300">
-
 
 <div class="cart" id="cart">
     <h3>
@@ -317,7 +315,7 @@
         { id: 14, nombre: 'lápices tinta', valor: 250, stock: 15, imagen: './lapicestinta.png' },
         { id: 15, nombre: 'llaveros', valor: 700, stock: 11, imagen: './llaveros.png' },
         { id: 17, nombre: 'audifonos gato', valor: 5000, stock: 2, imagen: './audifonogato.png' },
-        { id: 19, nombre: 'Guandecided to wipe my version of retro pie (not entirely sure how old it was, but I've been using it for years now), and install the new version so as to provide better support and such. unfortunately, I'm now having issues with the controllers using the hotkey while in games. all buttons seem to work on any game, as well as in emulationstation, and I've tried reconfiguring multiple times, with leaving the hotkey unassigned and giving it my usual "selecttes Sanrio', valor: 2000, stock: 2, imagen: './guantesanrio.png' },
+        { id: 19, nombre: 'Guantes Sanrio', valor: 2000, stock: 2, imagen: './guantesanrio.png' },
         { id: 21, nombre: 'Ampolleta Vintage', valor: 1500, stock: 22, imagen: './ampolletavintage.png' },
         { id: 22, nombre: 'Mantas 127X152 cms', valor: 6500, stock: 8, imagen: './mantas.png' },
         { id: 23, nombre: 'Bajada Cama', valor: 1000, stock: 8, imagen: './bajadacama.png' },
@@ -422,14 +420,11 @@
             return;
         }
 
-        // Buscar productos que incluyan el texto (mayúsculas/minúsculas indistinto)
         encontrados = productos.filter(producto =>
             producto.nombre.toLowerCase().includes(texto)
         );
 
-        // Si no hay coincidencias exactas, buscar la coincidencia más cercana por similitud
         if (encontrados.length === 0) {
-            // Buscar el producto con mayor cantidad de letras en común
             let maxCoincidencias = 0;
             let productoMasCercano = null;
             productos.forEach(producto => {
@@ -454,7 +449,6 @@
             resultadoDiv.textContent = `Resultados para: "${document.getElementById('buscador-productos').value}"`;
         }
 
-        // Mostrar los productos encontrados
         productosContainer.innerHTML = '';
         encontrados.forEach(producto => {
             const card = document.createElement('div');
@@ -514,8 +508,8 @@
         renderCart();
     });
 
-    // Inicializar
-    renderProductos(); renderCart();
+    // Inicializar productos al cargar la página
+    renderProductos();
 </script>
 
 <footer style="background:#181818; color:#f9f9f9; text-align:center; padding:18px 0 12px 0; margin-top:40px;">
@@ -542,22 +536,24 @@
     margin: 0;
     border-top: 1px solid #e0d2b8;
     position: relative;
+}
+.texto-marquesina {
     display: inline-block;
     white-space: nowrap;
     color: #B97A56; /* beige oscuro */
     font-family: 'Parisienne', cursive, Arial, sans-serif;
-    font-size: 2em; /* beige oscuro */
-    padding: 10px 0;risienne', cursive, Arial, sans-serif;
+    font-size: 2em;
+    padding: 10px 0;
     animation: marquesina-izq 18s linear infinite;
-}   padding: 10px 0;
-@keyframes marquesina-izq {zq 18s linear infinite;
+}
+@keyframes marquesina-izq {
     0% {
         transform: translateX(100vw);
-    }% {
-    100% {ansform: translateX(100vw);
+    }
+    100% {
         transform: translateX(-100%);
-    }00% {
-}       transform: translateX(-100%);
+    }
+}
 </style>
 </body>
-</html>>
+</html>
