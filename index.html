@@ -25,6 +25,16 @@
             padding: 20px 0;
             background-color: #F9F6F2; /* marfil */
         }
+        .marquee-container {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #FFE4E1; /* rosa suave */
+        }
+        .marquee-text {
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 24px;
+            color: #FF69B4; /* rosa más intenso */
+        }
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -244,9 +254,11 @@
     <div class="marquesina-marfil encabezado">
         <span class="texto-marquesina">Casa Quillaitún</span>
     </div>
-</header>
-
-<h1 class="titulo-catalogo">Catálogo de Productos</h1>
+    </header>
+    <div class="marquee-container">
+        <img src="snoopy1.gif" alt="Snoopy" style="height: 100%; max-height: 100px; position: relative; top: 50%; transform: translateY(-50%);">
+        <marquee class="marquee-text" style="display: inline-block; margin-left: 20px;">¡Se viene el día del niño! Domingo, 10 de agosto</marquee>
+    </div><h1 class="titulo-catalogo">Catálogo de Productos</h1>
 
 <div style="text-align:center; margin: 40px 0;">
     <h2 style="color:#B97A56; font-family:Arial, sans-serif; font-size:2em; margin-bottom:16px;">
@@ -292,10 +304,26 @@
 </div>
 <script>
     const productos = [
+        { id: 144, nombre: 'Set boxeo 🥊', valor: 15000, stock: 6, imagen: './setbox.jpeg' },
+        { id: 47, nombre: 'Labubu sorpresa', valor: 7000, stock: 5, imagen: './labubusorpresa.png' },
+        { id: 48, nombre: 'Vaso labubu chico', valor: 5000, stock: 3, imagen: './vasolabubuC.png' },
+        { id: 49, nombre: 'Vaso labubu mediano', valor: 6000, stock: 1, imagen: './labubuM.png' },               
+        { id: 50, nombre: 'vaso labubu grande', valor: 8000, stock: 1, imagen: './vasolabubuG.png' },
+        { id: 51, nombre: 'pop socket celular labubu', valor: 2000, stock: 8, imagen: './popsocket.png' },
+        { id: 52, nombre: 'Paraguas infantil Labubu', valor: 3500, stock: 4, imagen: './paraguasinfantiles.jpeg' },
+        { id: 14, nombre: 'Reloj niño 🕣 Capibara con proyector ', valor: 5000, stock: 3, imagen: './RELOJCAPIBARA.jpeg' },
+        { id: 15, nombre: 'Reloj niño 🕣 Labubu con proyector ', valor: 5000, stock: 1, imagen: './RELOJLABUBU.jpeg' },
+        { id: 16, nombre: 'Reloj niño 🕣 Stich con proyector ', valor: 5000, stock: 1, imagen: './RELOJSTICH.jpeg' },
+        { id: 53, nombre: 'dancing labubu ', valor: 12000, stock:2, imagen: './dancinglabubu.jpeg' },
+       { id: 18, nombre: 'Set dibujo y acuarela 42 piezas', valor: 2000, stock: 4, imagen: './SET42PIEZAS.jpeg' },
+        { id: 19, nombre: 'Set dibujo 180 piezas', valor: 10000, stock: 2, imagen: './SET180LAPICES.jpeg' },
+        { id: 20, nombre: 'Set 60 lápices doble punta', valor: 6000, stock: 3, imagen: './SETLAPICES2PUNTAS.jpeg' },
+        { id: 21, nombre: 'Set 208 piezas dibujo', valor: 8500, stock: 4, imagen: './SETLAPIZ208.jpeg' },
+        { id: 22, nombre: 'Fuente  Hondo melamina 23 cms', valor: 1000, stock: 4, imagen: './plato_hondo.jpeg' },
+
         { id: 141, nombre: 'Tira led recagable 72 cms', valor: 4000, stock: 6, imagen: './tiraled72.jpeg' },
         { id: 142, nombre: 'Batidora de Café ☕️', valor: 3500, stock: 6, imagen: './batidor.jpeg' },
         { id: 143, nombre: 'Humidificadores', valor: 4000, stock: 6, imagen: './humidificadores.jpeg' },
-        { id: 144, nombre: 'Set boxeo 🥊', valor: 15000, stock: 6, imagen: './setbox.jpeg' },
         { id: 145, nombre: 'Linterna minera solar y recargable  ', valor: 3500, stock: 6, imagen: './linternanueva.jpeg' },
         { id: 146, nombre: 'Joyero Atercipelado 💍  ', valor: 3500, stock: 6, imagen: './joyeroterciopelo.jpeg' },
         { id: 147, nombre: 'Joyero cofre 💍  ', valor: 4000, stock: 6, imagen: './joyerocaja.jpeg' },
@@ -321,15 +349,9 @@
         { id: 11, nombre: 'Mascarillas faciales antiedad', valor: 500, stock: 5, imagen: './antiedad.jpeg' },
         { id: 12, nombre: 'Mascarillas faciales curcuma', valor: 500, stock: 5, imagen: './turmeric.jpeg' },
         { id: 13, nombre: 'Procesadora alimentos eléctrica para 🥩 y 🥕/ acero 🥰', valor: 8000, stock: 0, imagen: './procesadora.jpeg' },
-        { id: 14, nombre: 'Reloj niño 🕣 Capibara con proyector ', valor: 5000, stock: 3, imagen: './RELOJCAPIBARA.jpeg' },
-        { id: 15, nombre: 'Reloj niño 🕣 Labubu con proyector ', valor: 5000, stock: 1, imagen: './RELOJLABUBU.jpeg' },
-        { id: 16, nombre: 'Reloj niño 🕣 Stich con proyector ', valor: 5000, stock: 1, imagen: './RELOJSTICH.jpeg' },
+
         { id: 17, nombre: 'Repisa cocina blanco y negro  ', valor: 1000, stock: 3, imagen: './RESPISACOCINA.jpeg' },
-        { id: 18, nombre: 'Set dibujo y acuarela 42 piezas', valor: 2000, stock: 4, imagen: './SET42PIEZAS.jpeg' },
-        { id: 19, nombre: 'Set dibujo 180 piezas', valor: 10000, stock: 2, imagen: './SET180LAPICES.jpeg' },
-        { id: 20, nombre: 'Set 60 lápices doble punta', valor: 6000, stock: 3, imagen: './SETLAPICES2PUNTAS.jpeg' },
-        { id: 21, nombre: 'Set 208 piezas dibujo', valor: 8500, stock: 4, imagen: './SETLAPIZ208.jpeg' },
-        { id: 22, nombre: 'Fuente  Hondo melamina 23 cms', valor: 1000, stock: 4, imagen: './plato_hondo.jpeg' },
+ 
         { id: 23, nombre: 'Fuente Hondo melamina 23 cms', valor: 1000, stock:4, imagen: './plato_hondo2.jpeg' },
         { id: 24, nombre: 'Fuente bajo2 melamina 31 cms', valor: 1000, stock: 7, imagen: './plato_bajo2.jpeg' },
         { id: 25, nombre: 'Fuente bajo3 melamina 31 cms', valor: 1000, stock: 7, imagen: './plato_bajo3.jpeg' },
@@ -353,13 +375,7 @@
         { id: 44, nombre: 'colet con detalle metalico ', valor: 1000, stock: 10, imagen: './coles_metalicos.jpeg' },
         { id: 45, nombre: 'Tiburón Metálico ', valor: 1000, stock: 12, imagen: './tiburon_metalico.jpeg' },
         { id: 46, nombre: 'Pinches metálicos chicos  ', valor: 750, stock: 1, imagen: './pinches_metalicos.jpeg' },
-        { id: 47, nombre: 'Labubu sorpresa', valor: 7000, stock: 5, imagen: './labubusorpresa.png' },
-        { id: 48, nombre: 'Vaso labubu chico', valor: 5000, stock: 3, imagen: './vasolabubuC.png' },
-        { id: 49, nombre: 'Vaso labubu mediano', valor: 6000, stock: 1, imagen: './labubuM.png' },               
-        { id: 50, nombre: 'vaso labubu grande', valor: 8000, stock: 1, imagen: './vasolabubuG.png' },
-        { id: 51, nombre: 'pop socket celular labubu', valor: 2000, stock: 8, imagen: './popsocket.png' },
-        { id: 52, nombre: 'Paraguas infantil Labubu', valor: 3500, stock: 4, imagen: './paraguasinfantiles.jpeg' },
-        { id: 53, nombre: 'dancing labubu ', valor: 12000, stock:2, imagen: './dancinglabubu.jpeg' },
+
         { id: 54, nombre: 'Linterna Radio Solar ', valor: 15500, stock:1, imagen: './linternaradio.jpeg' },
         { id: 55, nombre: 'linterna solar recargable ', valor: 3000, stock:8, imagen: './luz.jpg' },
         { id: 56, nombre: 'Tabla picar bamboo ', valor: 2000, stock:3, imagen: './tabla.jpg' },
